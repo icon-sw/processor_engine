@@ -37,8 +37,9 @@ pub mod log {
                 },
             }
         }
-
-        pub fn format(&self) -> String {
+    }
+    impl ToString for LogEntry {
+        fn to_string(&self) -> String {
             let level = match self.level {
                 LogLevel::EMERG => "EMERG",
                 LogLevel::ALERT => "ALERT",
@@ -88,11 +89,11 @@ pub mod log {
                     if let Some(entry) = queue.pop_front() {
                         let entry_level: i32 = entry.level as i32;
                         if entry_level <= (log_file_level as i32) {
-                            log_file.write_all(entry.format().as_bytes()).unwrap();
+                            log_file.write_all(entry.to_string().as_bytes()).unwrap();
                             log_file.flush().unwrap();
                         }
                         if entry_level <= (log_console_level as i32) {
-                            println!("{}", entry.format());
+                            println!("{}", entry.to_string());
                         }
                     }
                 }
