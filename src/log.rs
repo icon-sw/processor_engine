@@ -3,7 +3,7 @@ use std::sync::{Arc, Mutex};
 use std::thread;
 use chrono::prelude::*;
 
-use crate::interfaces::{FileInterface, InterfaceMode, IsInterface};
+use crate::interfaces::{FileInterface, InterfaceMode, InterfaceTrait};
 #[derive(Copy, Clone)]
 pub enum LogLevel {
     EMERG = 0,
@@ -86,6 +86,7 @@ impl Logger {
                 "Interface to log file".to_string(),
                 log_file_path,
                 InterfaceMode::Write,
+                Some(true),
             );
             match log_file.open() {
                 Ok(_) => {}
