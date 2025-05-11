@@ -59,7 +59,7 @@ pub mod log {
     }
 
     #[derive(Clone)]
-    struct Logger {
+    pub struct Logger {
         log_queue: Arc<Mutex<VecDeque<LogEntry>>>,
         log_console_level: LogLevel,
         log_file_level: LogLevel,
@@ -67,7 +67,7 @@ pub mod log {
     }
 
     impl Logger {
-        pub fn new(l_file_path: String, l_file_level: LogLevel, c_file_level: LogLevel) -> Self {
+        fn new(l_file_path: String, l_file_level: LogLevel, c_file_level: LogLevel) -> Self {
             Logger {
                 log_queue: Arc::new(Mutex::new(VecDeque::new())),
                 log_console_level: c_file_level,
@@ -76,7 +76,7 @@ pub mod log {
             }
         }
 
-        pub fn init_logger(&self) {
+        fn init_logger(&self) {
             let log_queue = self.log_queue.clone();
             let log_file_path = self.log_file_path.clone();
             let log_file_level = self.log_file_level;
@@ -100,19 +100,15 @@ pub mod log {
             });
         }
 
-        pub fn log(&self, entry: LogEntry) {
+        pub fn write(&self, entry: LogEntry) {
             let mut queue = self.log_queue.lock().unwrap();
             queue.push_back(entry);
-        }
-
-        pub fn set_file_log_level(&mut self, level: LogLevel) {
-            self.log_file_level = level;
         }
     }
 
     static LOGGER: Mutex<Option<Logger>> = Mutex::new(None);
 
-    fn log() -> Logger {
+    pub fn log() -> Logger {
         match LOGGER.lock().unwrap().as_ref() {
             Some(logger) => logger.clone(),
             None => {
@@ -122,7 +118,7 @@ pub mod log {
         }
     }
 
-    fn init_log(dir_log_path: String, file_log_level: LogLevel, console_log_level: LogLevel) {
+    pub fn init_log(dir_log_path: String, file_log_level: LogLevel, console_log_level: LogLevel) {
         match LOGGER.lock().unwrap().as_ref() {
             Some(_logger) => {
                 println!("Error: Log service uninitialized");
