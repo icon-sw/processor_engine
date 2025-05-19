@@ -3,12 +3,6 @@ pub mod interfaces;
 pub mod proc_monitor;
 pub mod time_util;
 
-pub mod math {
-    pub mod complex;
-    pub mod matrix;
-    pub mod algorithm;
-}
-
 pub mod signal_proc_base{
     pub mod filters;
     pub mod fourier;
