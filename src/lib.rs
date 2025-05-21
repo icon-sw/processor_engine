@@ -9,13 +9,8 @@ pub mod signal_proc_base{
 }
 
 pub mod processor_base {
-    pub mod processor;
-    pub mod processor_manager;
-    pub mod processor_factory;
-    pub mod processor_config;
-    pub mod processor_event;
-    pub mod processor_state;
-    pub mod processor_status;
+    pub mod parameter;
+    pub mod processing;
 }
 pub mod phys_const;
 pub mod wgs84;

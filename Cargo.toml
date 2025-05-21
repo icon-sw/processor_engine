@@ -5,3 +5,10 @@ edition = "2024"
 
 [dependencies]
 chrono = "0.4.41"
+dft = "0.5.5"
+nalgebra = "0.33.2"
+ndarray = "0.16.1"
+num = "0.4.3"
+num-traits = "0.2.19"
+rustfft = "6.3.0"
+spmc = "0.3.0"
