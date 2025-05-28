@@ -7,7 +7,7 @@ pub trait ParameterTypeTrait :
           + Send 
           + Sync {}
 
-pub trait ParameterTrait {}
+pub trait ParameterTrait : Sized + Clone + PartialEq + Eq + PartialOrd + Ord {}
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Parameter<T: ParameterTypeTrait> {
     pub name: String,
